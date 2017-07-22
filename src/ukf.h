@@ -83,6 +83,12 @@ public:
    * @param meas_package The latest measurement data of either radar or laser
    */
   void ProcessMeasurement(MeasurementPackage meas_package);
+    
+  /**
+   * Initialize UKF with first measurement
+   * @param meas_package The first measurement
+   */
+  void Initialize(MeasurementPackage meas_package);
 
   /**
    * Prediction Predicts sigma points, the state, and the state covariance
@@ -102,6 +108,12 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
+
+  /**
+   * Normalizes phi with atan2
+   * @param phi The angle measurement of phi
+   */
+  double normalize_phi(double phi);
 };
 
 #endif /* UKF_H */
