@@ -111,9 +111,24 @@ public:
 
   /**
    * Normalizes phi with atan2
-   * @param phi The angle measurement of phi
+   * @param angle The angle of a measurement to normalize
    */
-  double normalize_phi(double phi);
+  double normalize_angle(double angle);
+    
+  /**
+   * Generates sigma points with augmentation with process noise for the prediction step
+   * @param Xsig_aug Matrix to store the sigma points
+   */
+  void AugmentedSigmaPoints(MatrixXd* Xsig_aug);
+  
+  /*
+   * Predict sigma points
+   * @param Xsig_out Matrix to store the predicted sigma points
+   * @param delta_t Time difference in seconds between the last measurement and the new one
+   */
+  void SigmaPointPrediction(MatrixXd* Xsig_out, double delta_t);
+    
+  void PredictMeanAndCovariance();
 };
 
 #endif /* UKF_H */
