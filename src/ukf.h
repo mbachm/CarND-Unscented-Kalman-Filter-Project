@@ -61,13 +61,21 @@ public:
   ///* State dimension
   int n_x_;
 
+  ///* Radar measurement dimension
+  int n_z_;
+  
   ///* Augmented state dimension
   int n_aug_;
 
   ///* Sigma point spreading parameter
   double lambda_;
 
-
+  ///* measurement covariance matrix, taken from EKF project
+  Eigen::MatrixXd R_laser_;
+    
+  ///* measurement matrix, taken from EKF project
+  Eigen::MatrixXd H_laser_;
+  
   /**
    * Constructor
    */
@@ -128,7 +136,28 @@ public:
    */
   void SigmaPointPrediction(MatrixXd* Xsig_out, double delta_t);
     
+  /*
+   * Predict mean and covariance matrix in prediction step
+   */
   void PredictMeanAndCovariance();
+
+  /*
+   * Predict sigma points
+   * @param z_out Vector to store mean predicted measurement
+   * @param S_out Matrix to store measurement covariance matrix
+   * @param Zsig_out Matrix to store sigma points in measurement space
+   */
+  void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out, MatrixXd *Zsig_out);
+
+  /*
+   * Predict sigma points
+   * @param z_pred Mean predicted measurement vector
+   * @param S Predicted measurement covariance matrix
+   * @param z Radar measurement vector
+   * @param Zsig Matrix of sigma points in measurement space
+   */
+  void RadarUpdateState(VectorXd z_pred, MatrixXd S, VectorXd z, MatrixXd Zsig);
+
 };
 
 #endif /* UKF_H */
