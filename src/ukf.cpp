@@ -11,6 +11,10 @@ using std::vector;
  * Initializes Unscented Kalman filter
  */
 UKF::UKF() {
+  
+  NIS_lidar_ = 0.0;
+  NIS_radar_ = 0.0;
+  
   // false as we did not initialized the filter
   is_initialized_ = false;
     
@@ -441,11 +445,11 @@ void UKF::RadarUpdateState(VectorXd z_pred, MatrixXd S, VectorXd  z, MatrixXd Zs
   P_ = P_ - K*S*K.transpose();
     
   //Calculate NIS
-  double NIS = z_diff.transpose() * S.inverse() * z_diff;
+  NIS_radar_ = z_diff.transpose() * S.inverse() * z_diff;
     
   std::cout << "Updated state x: " << std::endl << x_ << std::endl;
   std::cout << "Updated state covariance P: " << std::endl << P_ << std::endl;
-  std::cout << "NIS radar: " << std::endl << NIS << std::endl << std::endl;
+  std::cout << "NIS radar: " << std::endl << NIS_radar_ << std::endl << std::endl;
 
   return;
 }
@@ -523,11 +527,11 @@ void UKF::LaserUpdateState(VectorXd z_pred, MatrixXd S, VectorXd z, MatrixXd Zsi
   P_ = P_ - K*S*K.transpose();
   
   //Calculate NIS
-  double NIS = z_diff.transpose() * S.inverse() * z_diff;
+  NIS_lidar_ = z_diff.transpose() * S.inverse() * z_diff;
   
   std::cout << "Updated state x: " << std::endl << x_ << std::endl;
   std::cout << "Updated state covariance P: " << std::endl << P_ << std::endl;
-  std::cout << "NIS laser: " << std::endl << NIS << std::endl << std::endl;
+  std::cout << "NIS laser: " << std::endl << NIS_lidar_ << std::endl << std::endl;
   
   return;
 }
