@@ -3,3 +3,12 @@
 
 # build files
 build/
+UnscentedKF.build/
+
+# xcode project files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+UnscentedKF.xcodeproj/
+cmake_install.cmake
+Debug/
