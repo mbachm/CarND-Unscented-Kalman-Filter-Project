@@ -105,6 +105,9 @@ private:
   ///* measurement matrix, taken from EKF project
   Eigen::MatrixXd H_laser_;
   
+  ///* measurement covariance matrix for radar
+  Eigen::MatrixXd R_radar_;
+  
   /**
    * Prediction Predicts sigma points, the state, and the state covariance
    * matrix
@@ -164,24 +167,6 @@ private:
    * @param Zsig Matrix of sigma points in measurement space
    */
   void RadarUpdateState(VectorXd z_pred, MatrixXd S, VectorXd z, MatrixXd Zsig);
-  
-  /*
-   * Predict sigma points
-   * @param z_pred Mean predicted measurement vector
-   * @param S Predicted measurement covariance matrix
-   * @param z Laser measurement vector
-   * @param Zsig Matrix of sigma points in measurement space
-   */
-  void PredictLaserMeasurement(VectorXd* z_out, MatrixXd* S_out, MatrixXd *Zsig_out);
-  
-  /*
-   * Predict sigma points
-   * @param z_pred Mean predicted measurement vector
-   * @param S Predicted measurement covariance matrix
-   * @param z Laser measurement vector
-   * @param Zsig Matrix of sigma points in measurement space
-   */
-  void LaserUpdateState(VectorXd z_pred, MatrixXd S, VectorXd z, MatrixXd Zsig);
 };
 
 #endif /* UKF_H */
