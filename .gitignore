@@ -12,3 +12,8 @@ CMakeScripts/
 UnscentedKF.xcodeproj/
 cmake_install.cmake
 Debug/
+
+# clion project files
+.idea/
+Makefile
+UnscentedKF.cbp
